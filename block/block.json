@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "wpsketchupview/viewer",
+	"version": "0.1.0",
+	"title": "WPSketchupView",
+	"category": "media",
+	"icon": "format-image",
+	"description": "Display interactive SketchUp GLB models.",
+	"textdomain": "wpsketchupview",
+
+	"attributes": {
+		"src": {
+			"type": "string",
+			"default": ""
+		}
+	},
+
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php",
+
+	"supports": {
+		"html": false
+	}
+}
