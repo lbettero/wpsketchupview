@@ -11,12 +11,11 @@ $src = isset($attributes['src']) && is_string($attributes['src'])
 if ($src === '') {
 	return;
 }
-?>
 
-<script
-	type="module"
-	src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.1.0/model-viewer.min.js">
-</script>
+if (function_exists('wpsketchupview_enqueue_model_viewer')) {
+	wpsketchupview_enqueue_model_viewer();
+}
+?>
 
 <model-viewer
 	src="<?php echo esc_url($src); ?>"
@@ -26,5 +25,5 @@ if ($src === '') {
 	); ?>"
 	camera-controls
 	touch-action="pan-y"
-	style="display:block;width:100%;height:500px;background:#eeeeee;">
+	style="display:block;width:100%;height:100%;background:#eeeeee;">
 </model-viewer>

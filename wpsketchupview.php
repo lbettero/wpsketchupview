@@ -18,44 +18,85 @@ declare(strict_types=1);
 defined('ABSPATH') || exit;
 
 /**
- * Registers the model-viewer library and the Gutenberg block.
+ * Loads the shortcode implementation.
+ */
+require_once __DIR__ . '/includes/shortcode.php';
+
+/**
+ * Returns the model-viewer script handle.
+ */
+function wpsketchupview_model_viewer_handle(): string
+{
+	return 'wpsketchupview-model-viewer';
+}
+
+/**
+ * Registers the local model-viewer library.
+ */
+function wpsketchupview_register_model_viewer(): void
+{
+	$handle = wpsketchupview_model_viewer_handle();
+
+	if (wp_script_is($handle, 'registered')) {
+		return;
+	}
+
+	$relative_path = 'assets/js/model-viewer.min.js';
+	$script_path   = plugin_dir_path(__FILE__) . $relative_path;
+	$script_url    = plugin_dir_url(__FILE__) . $relative_path;
+
+	$version = is_file($script_path)
+		? (string) filemtime($script_path)
+		: false;
+
+	wp_register_script(
+		$handle,
+		$script_url,
+		[],
+		$version,
+		true
+	);
+}
+
+/**
+ * Registers the plugin assets and Gutenberg block.
  */
 function wpsketchupview_register(): void
 {
-    $model_viewer_file = plugin_dir_path(__FILE__)
-        . 'assets/js/model-viewer.min.js';
+	wpsketchupview_register_model_viewer();
 
-    wp_register_script(
-        'wpsketchupview-model-viewer',
-        plugin_dir_url(__FILE__)
-            . 'assets/js/model-viewer.min.js',
-        [],
-        is_file($model_viewer_file)
-            ? (string) filemtime($model_viewer_file)
-            : null,
-        true
-    );
-
-    register_block_type(__DIR__ . '/block');
+	register_block_type(__DIR__ . '/block');
 }
 
 add_action('init', 'wpsketchupview_register');
+
+/**
+ * Enqueues the local model-viewer library.
+ *
+ * This function is shared by the block renderer, shortcode and editor.
+ */
+function wpsketchupview_enqueue_model_viewer(): void
+{
+	wpsketchupview_register_model_viewer();
+
+	wp_enqueue_script(wpsketchupview_model_viewer_handle());
+}
 
 /**
  * Loads model-viewer in the WordPress block editor.
  */
 function wpsketchupview_enqueue_editor_assets(): void
 {
-    wp_enqueue_script('wpsketchupview-model-viewer');
+	wpsketchupview_enqueue_model_viewer();
 }
 
 add_action(
-    'enqueue_block_editor_assets',
-    'wpsketchupview_enqueue_editor_assets'
+	'enqueue_block_editor_assets',
+	'wpsketchupview_enqueue_editor_assets'
 );
 
 /**
- * Adds type="module" to the model-viewer script tag.
+ * Adds type="module" to the local model-viewer script tag.
  *
  * @param string $tag    Generated script tag.
  * @param string $handle Registered script handle.
@@ -63,29 +104,34 @@ add_action(
  * @return string
  */
 function wpsketchupview_script_loader_tag(
-    string $tag,
-    string $handle
+	string $tag,
+	string $handle
 ): string {
-    if ('wpsketchupview-model-viewer' !== $handle) {
-        return $tag;
-    }
+	if (wpsketchupview_model_viewer_handle() !== $handle) {
+		return $tag;
+	}
 
-	$tag = preg_replace(
-		'/\s+type=(["\'])(?:text\/javascript|application\/javascript)\1/i',
+	$filtered_tag = preg_replace(
+		'/\s+type=(["\'])[^"\']*\1/i',
 		'',
 		$tag
 	);
 
-    return str_replace(
-        '<script ',
-        '<script type="module" ',
-        $tag
-    );
+	if (!is_string($filtered_tag)) {
+		return $tag;
+	}
+
+	return preg_replace(
+		'/<script\b/i',
+		'<script type="module"',
+		$filtered_tag,
+		1
+	) ?: $tag;
 }
 
 add_filter(
-    'script_loader_tag',
-    'wpsketchupview_script_loader_tag',
-    10,
-    2
+	'script_loader_tag',
+	'wpsketchupview_script_loader_tag',
+	10,
+	2
 );

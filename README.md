@@ -1,16 +1,17 @@
 # WPSketchupView
 
-A lightweight WordPress plugin that displays interactive SketchUp models exported as GLB files. Visitors can rotate, zoom, and explore 3D models directly in the browser using a native Gutenberg block.
+A lightweight WordPress plugin that displays interactive SketchUp models exported as GLB files. Visitors can rotate, zoom, and explore 3D models directly in the browser using either a native Gutenberg block or a shortcode.
 
 ## Features
 
 - Interactive 3D GLB model viewer
 - Native Gutenberg block
+- Shortcode support
 - Mouse and touch controls
 - Rotate, zoom and pan
-- Lightweight and easy to use
 - Responsive viewer
-- No external dependencies required by the user
+- Bundled `model-viewer` library
+- No external runtime dependencies
 
 ## Requirements
 
@@ -23,7 +24,7 @@ A lightweight WordPress plugin that displays interactive SketchUp models exporte
 1. Download or clone this repository.
 2. Copy the plugin folder into:
 
-```
+```text
 wp-content/plugins/
 ```
 
@@ -37,11 +38,13 @@ Upload the generated file to a location that provides a direct public URL.
 
 Example:
 
-```
+```text
 https://example.com/models/house.glb
 ```
 
 ## Usage
+
+### Gutenberg Block
 
 1. Edit a page or post.
 2. Click the **+** button.
@@ -50,7 +53,13 @@ https://example.com/models/house.glb
 5. Paste the URL of your GLB model.
 6. Publish or update the page.
 
-The model will be displayed automatically.
+### Shortcode
+
+You can also display a model using the shortcode:
+
+```text
+[wpsketchupview src="https://example.com/models/house.glb"]
+```
 
 ## Supported format
 
@@ -58,7 +67,7 @@ The model will be displayed automatically.
 
 ## Notes
 
-The current version expects the GLB file to be publicly accessible through a direct URL.
+The GLB file must be publicly accessible through a direct URL.
 
 Google Drive sharing links and other hosting services that do not provide direct access to the GLB file are not supported.
 
@@ -67,6 +76,7 @@ Google Drive sharing links and other hosting services that do not provide direct
 Planned features include:
 
 - Media Library integration
+- Drag-and-drop model selection
 - Protected model storage
 - Fullscreen mode
 - Viewer customization
@@ -76,15 +86,23 @@ Planned features include:
 
 ## Changelog
 
+### 0.1.1
+
+- Bundle the `model-viewer` library with the plugin
+- Remove the external Google CDN dependency
+- Centralize script registration and asset loading
+- Share the same asset-loading mechanism between the Gutenberg block and shortcode
+- Improve plugin architecture and code organization
+- Improve cache busting using local asset versioning
+
 ### 0.1.0
 
-- Initial release.
-- Native Gutenberg block.
-- Display SketchUp models exported as GLB files.
-- Interactive 3D viewer.
-- Mouse and touch controls.
-- Rotate, zoom and pan support.
-- Responsive viewer.
+- Initial release
+- Native Gutenberg block
+- Shortcode support
+- Interactive GLB viewer
+- Mouse and touch controls
+- Responsive viewer
 
 ## License
 

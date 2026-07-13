@@ -4,33 +4,57 @@ declare(strict_types=1);
 
 defined('ABSPATH') || exit;
 
-add_shortcode('wpsketchupview', 'wpsketchupview_shortcode');
-
 /**
  * Renders the WPSketchupView shortcode.
  *
  * Usage:
  * [wpsketchupview src="https://example.com/model.glb"]
+ *
+ * @param array<string, mixed>|string $atts Shortcode attributes.
+ *
+ * @return string
  */
-function wpsketchupview_shortcode(array $atts = []): string
+function wpsketchupview_shortcode(array|string $atts = []): string
 {
-    $atts = shortcode_atts(
-        [
-            'src' => '',
-        ],
-        $atts,
-        'wpsketchupview'
-    );
+	if (!is_array($atts)) {
+		$atts = [];
+	}
 
-    $src = esc_url(trim((string) $atts['src']));
+	$attributes = shortcode_atts(
+		[
+			'src' => '',
+		],
+		$atts,
+		'wpsketchupview'
+	);
 
-    if ($src === '') {
-        return '';
-    }
+	$src = esc_url(trim((string) $attributes['src']));
 
-    ob_start();
+	if ('' === $src) {
+		return '';
+	}
 
-    require plugin_dir_path(__DIR__) . 'templates/viewer.php';
+	if (function_exists('wpsketchupview_enqueue_model_viewer')) {
+		wpsketchupview_enqueue_model_viewer();
+	}
 
-    return (string) ob_get_clean();
+	$template_file = dirname(__DIR__)
+		. DIRECTORY_SEPARATOR
+		. 'templates'
+		. DIRECTORY_SEPARATOR
+		. 'viewer.php';
+
+	if (!is_readable($template_file)) {
+		return '';
+	}
+
+	ob_start();
+
+	require $template_file;
+
+	$output = ob_get_clean();
+
+	return is_string($output) ? $output : '';
 }
+
+add_shortcode('wpsketchupview', 'wpsketchupview_shortcode');
