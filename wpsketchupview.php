@@ -7,10 +7,11 @@
  * Requires at least: 6.0
  * Requires PHP:      8.1
  * Author:            LBettero
- * Author URI:        https://liviabettero.net/
- * License:           GPL-2.0-or-later
+ * Author URI:        https://liviabettero.net
+ * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       wpsketchupview
+ * Domain Path:       /languages
  */
 
 declare(strict_types=1);

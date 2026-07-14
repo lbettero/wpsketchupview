@@ -1,12 +1,14 @@
-# wpsketchupview
-A lightweight WordPress plugin that displays interactive SketchUp models exported as GLB files. Visitors can rotate, zoom, and explore 3D models directly in the browser using smooth controls, while site owners manage everything through a simple WordPress interface.
-
 == Changelog ==
+
+= 0.1.1 =
+
+* Update plugin documentation for WordPress.org.
+* General maintenance and code cleanup.
 
 = 0.1.0 =
 
 * Initial release.
-* Display SketchUp models exported as GLB files.
-* Interactive 3D viewer with rotate and zoom controls.
-* Shortcode support for embedding models in posts and pages.
+* Display interactive SketchUp models exported as GLB files.
+* Native Gutenberg block for embedding 3D models.
+* Interactive 3D viewer with camera controls.
 * Responsive viewer for desktop and mobile devices.
