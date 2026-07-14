@@ -1,0 +1,14 @@
+== Changelog ==
+
+= 0.1.1 =
+
+* Update plugin documentation for WordPress.org.
+* General maintenance and code cleanup.
+
+= 0.1.0 =
+
+* Initial release.
+* Display interactive SketchUp models exported as GLB files.
+* Native Gutenberg block for embedding 3D models.
+* Interactive 3D viewer with camera controls.
+* Responsive viewer for desktop and mobile devices.
