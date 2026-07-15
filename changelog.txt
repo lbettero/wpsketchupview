@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 0.2.0 =
+
+* Added a read-only, responsive Meshes administration screen.
+* Added configurable model directory discovery through WordPress uploads APIs.
+* Removed the remote front-end Model Viewer dependency.
+
 = 0.1.1 =
 
 * Update plugin documentation for WordPress.org.

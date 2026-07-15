@@ -4,7 +4,7 @@ Tags: sketchup, glb, 3d, model-viewer, gutenberg
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.1
-Stable tag: 0.1.1
+Stable tag: 0.2.0
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +23,7 @@ Built on the open-source Model Viewer web component maintained by Google and con
 * Responsive layout for desktop and mobile devices.
 * Simple configuration through the WordPress Block Editor.
 * Supports GLB (Binary glTF) models.
+* Read-only Meshes screen in the WordPress administration area.
 
 == Installation ==
 
@@ -53,6 +54,13 @@ No. WPSketchupView is designed for the WordPress Block Editor (Gutenberg).
 2. Interactive GLB model displayed on the front end.
 
 == Changelog ==
+
+= 0.2.0 =
+
+* Added a Meshes administration screen.
+* Added automatic GLB discovery in the configured uploads subdirectory.
+* Added a responsive interactive model gallery.
+* Replaced the remote front-end dependency with the bundled library.
 
 = 0.1.1 =
 

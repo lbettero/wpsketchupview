@@ -10,9 +10,9 @@ if (!isset($src) || $src === '') {
 ?>
 
 <model-viewer
+    class="wpsketchupview-viewer"
     src="<?php echo esc_url($src); ?>"
     alt="<?php echo esc_attr__('Interactive 3D model', 'wpsketchupview'); ?>"
     camera-controls
-    touch-action="pan-y"
-    style="display:block;width:100%;height:500px;">
+    touch-action="pan-y">
 </model-viewer>

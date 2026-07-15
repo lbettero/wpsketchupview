@@ -1,0 +1,42 @@
+{
+  "$schema": "https://localazy.com/schema/localazy.json",
+  "upload": {
+    "filterSource": false,
+    "files": [
+      {
+        "type": "pot",
+        "pattern": "languages/wpsketchupview.pot",
+        "file": "wpsketchupview.po"
+      },
+      {
+        "group": "existing-translations",
+        "type": "po",
+        "pattern": "languages/wpsketchupview-es_ES.po",
+        "file": "wpsketchupview.po",
+        "lang": "es"
+      },
+      {
+        "group": "existing-translations",
+        "type": "po",
+        "pattern": "languages/wpsketchupview-gl_ES.po",
+        "file": "wpsketchupview.po",
+        "lang": "gl"
+      },
+      {
+        "group": "existing-translations",
+        "type": "po",
+        "pattern": "languages/wpsketchupview-pt_BR.po",
+        "file": "wpsketchupview.po",
+        "lang": "pt-BR"
+      }
+    ]
+  },
+  "download": {
+    "includeSourceLang": false,
+    "langAliases": {
+      "es": "es_ES",
+      "gl": "gl_ES"
+    },
+    "files": "languages/wpsketchupview-${langLsrUnderscore}.po"
+  }
+}

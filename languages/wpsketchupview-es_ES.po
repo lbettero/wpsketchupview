@@ -1,0 +1,51 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WPSketchupView 0.2.0\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: wpsketchupview\n"
+
+msgid "3D Models"
+msgstr "Modelos 3D"
+
+msgid "SketchUp 3D Models"
+msgstr "Modelos 3D de SketchUp"
+
+msgid "GLB file URL"
+msgstr "URL del archivo GLB"
+
+msgid "Paste the complete URL of the GLB file."
+msgstr "Pega la URL completa del archivo GLB."
+
+msgid "WPSketchupView"
+msgstr "WPSketchupView"
+
+msgid "Paste the URL of a GLB model to display it."
+msgstr "Pega la URL de un modelo GLB para mostrarlo."
+
+msgid "Interactive 3D model"
+msgstr "Modelo 3D interactivo"
+
+#, php-format
+msgid "GLB models found in the uploads directory: %s"
+msgstr "Modelos GLB encontrados en el directorio de subidas: %s"
+
+#, php-format
+msgid "%d model found."
+msgid_plural "%d models found."
+msgstr[0] "%d modelo encontrado."
+msgstr[1] "%d modelos encontrados."
+
+msgid "No GLB models were found."
+msgstr "No se encontraron modelos GLB."
+
+#, php-format
+msgid "Interactive 3D model: %s"
+msgstr "Modelo 3D interactivo: %s"
+
+msgid "You are not allowed to view uploaded models."
+msgstr "No tienes permisos para ver los modelos subidos."

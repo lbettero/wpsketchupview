@@ -1,0 +1,41 @@
+.wpsketchupview-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: 1.5rem;
+    margin-block: 1.5rem;
+}
+
+.wpsketchupview-card {
+    overflow: hidden;
+    border: 1px solid #dcdcde;
+    border-radius: 0.5rem;
+    background: #fff;
+    box-shadow: 0 0.125rem 0.5rem rgb(0 0 0 / 8%);
+}
+
+.wpsketchupview-card model-viewer {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: #f0f0f1;
+}
+
+.wpsketchupview-card__title {
+    margin: 0;
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.wpsketchupview-message {
+    padding: 1rem;
+    border-inline-start: 0.25rem solid #72aee6;
+    background: #f0f6fc;
+}
+.wpsketchupview-viewer {
+    display: block;
+    width: 100%;
+    min-height: 31.25rem;
+    background: #eee;
+}

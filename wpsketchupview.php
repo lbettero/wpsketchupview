@@ -3,7 +3,7 @@
  * Plugin Name:       WPSketchupView
  * Plugin URI:        https://github.com/lbettero/wpsketchupview
  * Description:       Display interactive SketchUp GLB models in WordPress.
- * Version:           0.1.0
+ * Version:           0.2.0
  * Requires at least: 6.0
  * Requires PHP:      8.1
  * Author:            LBettero
@@ -18,11 +18,20 @@ declare(strict_types=1);
 
 defined('ABSPATH') || exit;
 
+require_once __DIR__ . '/includes/shortcode.php';
+require_once __DIR__ . '/includes/admin.php';
+
 /**
  * Registers the model-viewer library and the Gutenberg block.
  */
 function wpsketchupview_register(): void
 {
+    load_plugin_textdomain(
+        'wpsketchupview',
+        false,
+        dirname(plugin_basename(__FILE__)) . '/languages'
+    );
+
     $model_viewer_file = plugin_dir_path(__FILE__)
         . 'assets/js/model-viewer.min.js';
 
@@ -37,6 +46,15 @@ function wpsketchupview_register(): void
         true
     );
 
+    $viewer_style_file = plugin_dir_path(__FILE__) . 'assets/css/viewer.css';
+
+    wp_register_style(
+        'wpsketchupview-viewer',
+        plugin_dir_url(__FILE__) . 'assets/css/viewer.css',
+        [],
+        is_file($viewer_style_file) ? (string) filemtime($viewer_style_file) : null
+    );
+
     register_block_type(__DIR__ . '/block');
 }
 
@@ -48,6 +66,7 @@ add_action('init', 'wpsketchupview_register');
 function wpsketchupview_enqueue_editor_assets(): void
 {
     wp_enqueue_script('wpsketchupview-model-viewer');
+    wp_enqueue_style('wpsketchupview-viewer');
 }
 
 add_action(

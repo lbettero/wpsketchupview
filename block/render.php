@@ -11,20 +11,18 @@ $src = isset($attributes['src']) && is_string($attributes['src'])
 if ($src === '') {
 	return;
 }
+
+wp_enqueue_script('wpsketchupview-model-viewer');
+wp_enqueue_style('wpsketchupview-viewer');
 ?>
 
-<script
-	type="module"
-	src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.1.0/model-viewer.min.js">
-</script>
-
 <model-viewer
+	class="wpsketchupview-viewer"
 	src="<?php echo esc_url($src); ?>"
 	alt="<?php echo esc_attr__(
 		'Interactive 3D model',
 		'wpsketchupview'
 	); ?>"
 	camera-controls
-	touch-action="pan-y"
-	style="display:block;width:100%;height:500px;background:#eeeeee;">
+	touch-action="pan-y">
 </model-viewer>
