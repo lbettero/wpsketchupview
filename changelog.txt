@@ -1,20 +1,23 @@
 == Changelog ==
 
+= 0.2.1 =
+
+* Load the official Model Viewer 4.1.0 bundle locally through WordPress.
+* Remove direct CDN script injection from block rendering.
+* Validate block and shortcode model URLs consistently.
+* Include the third-party license, security guidance and regression tests.
+
 = 0.2.0 =
 
 * Added a read-only, responsive Meshes administration screen.
 * Added configurable model directory discovery through WordPress uploads APIs.
-* Removed the remote front-end Model Viewer dependency.
+* Added localization support.
 
 = 0.1.1 =
 
-* Update plugin documentation for WordPress.org.
+* Updated plugin documentation for WordPress.org.
 * General maintenance and code cleanup.
 
 = 0.1.0 =
 
-* Initial release.
-* Display interactive SketchUp models exported as GLB files.
-* Native Gutenberg block for embedding 3D models.
-* Interactive 3D viewer with camera controls.
-* Responsive viewer for desktop and mobile devices.
+* Initial release with an interactive GLB viewer and Gutenberg block.

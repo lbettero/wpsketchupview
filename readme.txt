@@ -4,7 +4,7 @@ Tags: sketchup, glb, 3d, model-viewer, gutenberg
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.1
-Stable tag: 0.2.0
+Stable tag: 0.2.1
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,6 +35,13 @@ Yes. Use the `wpsketchupview_models_directory` filter to return another uploads 
 
 == Changelog ==
 
+= 0.2.1 =
+
+* Replaced the invalid local asset with the official Model Viewer 4.1.0 bundle and license.
+* Centralized WordPress asset loading and removed direct CDN script injection.
+* Restricted block and shortcode model URLs to HTTP(S).
+* Added security regression tests and deployment guidance.
+
 = 0.2.0 =
 
 * Added the read-only Meshes administration screen.
@@ -51,5 +58,7 @@ Yes. Use the `wpsketchupview_models_directory` filter to return another uploads 
 
 Model Viewer
 Copyright Google LLC and contributors.
+Bundled version: 4.1.0
 License: Apache License 2.0
+Bundled license: assets/js/model-viewer.LICENSE.txt
 Source: https://github.com/google/model-viewer

@@ -33,9 +33,10 @@
     border-inline-start: 0.25rem solid #72aee6;
     background: #f0f6fc;
 }
+
 .wpsketchupview-viewer {
     display: block;
     width: 100%;
     min-height: 31.25rem;
-    background: #eee;
+    background: #eeeeee;
 }

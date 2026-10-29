@@ -4,92 +4,79 @@ Tags: sketchup, glb, 3d, model-viewer, gutenberg
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.1
-Stable tag: 0.2.0
+Stable tag: 0.2.1
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Display interactive SketchUp models exported as GLB files using a native Gutenberg block.
+Display interactive SketchUp models exported as GLB files and inspect uploaded models in WordPress administration.
 
 == Description ==
 
-WPSketchupView is a lightweight WordPress plugin that lets you display interactive SketchUp models exported as GLB files directly in your posts and pages.
+WPSketchupView displays interactive GLB models with a native Gutenberg block, shortcode and a read-only administration gallery.
 
-Built on the open-source Model Viewer web component maintained by Google and contributors, it allows visitors to rotate, zoom, and inspect 3D models in modern browsers without requiring additional software or plugins.
+The Meshes screen discovers GLB files in the configured subdirectory of WordPress uploads. The default subdirectory is `mesh` and can be changed with the `wpsketchupview_models_directory` filter.
 
 == Features ==
 
-* Native Gutenberg block.
+* Native Gutenberg block and shortcode.
 * Interactive 3D viewer with camera controls.
-* Responsive layout for desktop and mobile devices.
-* Simple configuration through the WordPress Block Editor.
-* Supports GLB (Binary glTF) models.
-* Read-only Meshes screen in the WordPress administration area.
+* Read-only Meshes screen in WordPress administration.
+* Responsive model gallery.
+* Local, pinned Model Viewer runtime.
+* Localized administration interface.
 
 == Installation ==
 
-1. Upload the plugin to the `/wp-content/plugins/` directory, or install it through the WordPress Plugins screen.
-2. Activate the plugin through the **Plugins** screen in WordPress.
-3. Edit a post or page using the Block Editor.
-4. Add the **WPSketchupView** block.
-5. Select or enter the URL of a GLB model.
-6. Publish or update the page.
+1. Upload the plugin to the `/wp-content/plugins/` directory.
+2. Activate it through the **Plugins** screen in WordPress.
+3. Upload GLB files to the `mesh` subdirectory of WordPress uploads or add a block with an HTTP(S) model URL.
+4. Open **3D Models** in WordPress administration or add the WPSketchupView block to a post.
 
 == Frequently Asked Questions ==
 
-= Which file formats are supported? =
+= Which formats are supported? =
 
-Currently, WPSketchupView supports GLB (Binary glTF) files.
+The viewer and gallery currently support GLB files.
 
-= Can visitors interact with the model? =
+= Can the model directory be changed? =
 
-Yes. Visitors can rotate, zoom, and inspect the model using mouse, touch, or trackpad gestures.
-
-= Does this plugin work with the Classic Editor? =
-
-No. WPSketchupView is designed for the WordPress Block Editor (Gutenberg).
-
-== Screenshots ==
-
-1. WPSketchupView block in the WordPress Block Editor.
-2. Interactive GLB model displayed on the front end.
+Yes. Use the `wpsketchupview_models_directory` filter to return another uploads subdirectory name.
 
 == Changelog ==
 
+= 0.2.1 =
+
+* Replaced the invalid local asset with the official Model Viewer 4.1.0 bundle and license.
+* Removed direct CDN script injection and centralized WordPress asset loading.
+* Restricted block and shortcode sources to absolute HTTP(S) URLs.
+* Added security regression tests and deployment guidance.
+
 = 0.2.0 =
 
-* Added a Meshes administration screen.
+* Added a read-only Meshes administration screen.
 * Added automatic GLB discovery in the configured uploads subdirectory.
-* Added a responsive interactive model gallery.
-* Replaced the remote front-end dependency with the bundled library.
+* Added a responsive interactive model gallery and localization support.
 
 = 0.1.1 =
 
-* Improved plugin documentation for WordPress.org.
-* Updated readme to the official WordPress.org format.
-* Added third-party library information.
-* General maintenance and submission preparation.
+* Improved WordPress.org documentation and third-party library information.
 
 = 0.1.0 =
 
-* Initial release.
-* Display SketchUp models exported as GLB files.
-* Interactive 3D viewer with camera controls.
-* Responsive layout for desktop and mobile devices.
+* Initial interactive GLB viewer release.
 
 == Upgrade Notice ==
 
-= 0.1.1 =
+= 0.2.1 =
 
-Documentation improvements and maintenance release.
+Security and reliability update. Upgrade to use the verified local viewer runtime and consistent URL validation.
 
 == Third-Party Libraries ==
-
-This plugin includes Model Viewer.
 
 Model Viewer
 Copyright Google LLC and contributors.
 
+Bundled version: 4.1.0
 License: Apache License 2.0
-
-Source:
-https://github.com/google/model-viewer
+Bundled license: `assets/js/model-viewer.LICENSE.txt`
+Source: https://github.com/google/model-viewer
