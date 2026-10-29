@@ -50,15 +50,11 @@
 				blockProps,
 				urlField,
 				createElement('model-viewer', {
+					className: 'wpsketchupview-viewer',
 					src: src,
 					alt: __('Interactive 3D model', 'wpsketchupview'),
 					'camera-controls': true,
-					'touch-action': 'pan-y',
-					style: {
-						display: 'block',
-						width: '100%',
-						height: '500px'
-					}
+					'touch-action': 'pan-y'
 				})
 			);
 		},

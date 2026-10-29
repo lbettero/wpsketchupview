@@ -3,7 +3,7 @@
  * Plugin Name:       WPSketchupView
  * Plugin URI:        https://github.com/lbettero/wpsketchupview
  * Description:       Display interactive SketchUp GLB models in WordPress.
- * Version:           0.1.0
+ * Version:           0.2.1
  * Requires at least: 6.0
  * Requires PHP:      8.1
  * Author:            LBettero
@@ -18,23 +18,34 @@ declare(strict_types=1);
 
 defined('ABSPATH') || exit;
 
-/**
- * Registers the model-viewer library and the Gutenberg block.
- */
+const WPSKETCHUPVIEW_VERSION = '0.2.1';
+const WPSKETCHUPVIEW_MODEL_VIEWER_VERSION = '4.1.0';
+
+require_once __DIR__ . '/includes/shortcode.php';
+require_once __DIR__ . '/includes/admin.php';
+
+/** Registers local assets, translations and the Gutenberg block. */
 function wpsketchupview_register(): void
 {
-    $model_viewer_file = plugin_dir_path(__FILE__)
-        . 'assets/js/model-viewer.min.js';
+    load_plugin_textdomain(
+        'wpsketchupview',
+        false,
+        dirname(plugin_basename(__FILE__)) . '/languages'
+    );
 
     wp_register_script(
         'wpsketchupview-model-viewer',
-        plugin_dir_url(__FILE__)
-            . 'assets/js/model-viewer.min.js',
+        plugin_dir_url(__FILE__) . 'assets/js/model-viewer.min.js',
         [],
-        is_file($model_viewer_file)
-            ? (string) filemtime($model_viewer_file)
-            : null,
+        WPSKETCHUPVIEW_MODEL_VIEWER_VERSION,
         true
+    );
+
+    wp_register_style(
+        'wpsketchupview-viewer',
+        plugin_dir_url(__FILE__) . 'assets/css/viewer.css',
+        [],
+        WPSKETCHUPVIEW_VERSION
     );
 
     register_block_type(__DIR__ . '/block');
@@ -42,51 +53,56 @@ function wpsketchupview_register(): void
 
 add_action('init', 'wpsketchupview_register');
 
-/**
- * Loads model-viewer in the WordPress block editor.
- */
+/** Loads the viewer in the WordPress block editor. */
 function wpsketchupview_enqueue_editor_assets(): void
 {
-    wp_enqueue_script('wpsketchupview-model-viewer');
+    wpsketchupview_enqueue_viewer_assets();
 }
 
-add_action(
-    'enqueue_block_editor_assets',
-    'wpsketchupview_enqueue_editor_assets'
-);
+add_action('enqueue_block_editor_assets', 'wpsketchupview_enqueue_editor_assets');
 
-/**
- * Adds type="module" to the model-viewer script tag.
- *
- * @param string $tag    Generated script tag.
- * @param string $handle Registered script handle.
- *
- * @return string
- */
-function wpsketchupview_script_loader_tag(
-    string $tag,
-    string $handle
-): string {
+/** Enqueues the local viewer runtime and styles once per page. */
+function wpsketchupview_enqueue_viewer_assets(): void
+{
+    wp_enqueue_script('wpsketchupview-model-viewer');
+    wp_enqueue_style('wpsketchupview-viewer');
+}
+
+/** Accepts only absolute HTTP(S) model URLs. */
+function wpsketchupview_sanitize_model_url(mixed $value): string
+{
+    if (!is_string($value)) {
+        return '';
+    }
+
+    $url = trim($value);
+    $parts = wp_parse_url($url);
+    if (!is_array($parts)
+        || !isset($parts['scheme'], $parts['host'])
+        || !in_array(strtolower((string) $parts['scheme']), ['http', 'https'], true)) {
+        return '';
+    }
+
+    return esc_url_raw($url, ['http', 'https']);
+}
+
+/** Adds type="module" only to the bundled Model Viewer script. */
+function wpsketchupview_script_loader_tag(string $tag, string $handle): string
+{
     if ('wpsketchupview-model-viewer' !== $handle) {
         return $tag;
     }
 
-	$tag = preg_replace(
-		'/\s+type=(["\'])(?:text\/javascript|application\/javascript)\1/i',
-		'',
-		$tag
-	);
-
-    return str_replace(
-        '<script ',
-        '<script type="module" ',
+    $filtered_tag = preg_replace(
+        '/\s+type=(["\'])(?:text\/javascript|application\/javascript)\1/i',
+        '',
         $tag
     );
+    if (is_string($filtered_tag)) {
+        $tag = $filtered_tag;
+    }
+
+    return str_replace('<script ', '<script type="module" ', $tag);
 }
 
-add_filter(
-    'script_loader_tag',
-    'wpsketchupview_script_loader_tag',
-    10,
-    2
-);
+add_filter('script_loader_tag', 'wpsketchupview_script_loader_tag', 10, 2);
